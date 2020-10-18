@@ -32,5 +32,19 @@ AuthorSchema
   return '/catalog/author/' + this._id;
 });
 
+const { DateTime } = require("luxon");
+AuthorSchema
+.virtual('date_of_birth_formatted')
+.get(function () {
+return this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).setLocale('jp').toLocaleString() : '';
+});
+
+
+AuthorSchema
+.virtual('date_of_death_formatted')
+.get(function () {
+return this.date_of_death ? DateTime.fromJSDate(this.date_of_death).setLocale('jp').toLocaleString() : '';
+});
+
 //Export model
 module.exports = mongoose.model('Author', AuthorSchema);
